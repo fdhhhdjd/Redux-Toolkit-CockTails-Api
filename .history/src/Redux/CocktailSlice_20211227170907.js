@@ -15,16 +15,7 @@ export const fetchSingleCocktail = createAsyncThunk(
     const responses = await axios.get(
       `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`
     );
-    return responses.data;
-  }
-);
-export const fetchSearchCocktail = createAsyncThunk(
-  "Cocktails/fetchSearchCocktail",
-  async (searchText) => {
-    const responseSearch = await axios.get(
-      `https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${searchText}`
-    );
-    return responseSearch.data;
+    return id;
   }
 );
 const CocktailSlice = createSlice({
@@ -60,20 +51,9 @@ const CocktailSlice = createSlice({
       state.loading = false;
       state.error = action.payload;
     },
-    //! Get Search Cocktail id
-    [fetchSearchCocktail.pending]: (state, action) => {
-      state.loading = true;
-    },
-    [fetchSearchCocktail.fulfilled]: (state, action) => {
-      state.loading = false;
-      state.cocktails = action.payload.drinks;
-    },
-    [fetchSearchCocktail.rejected]: (state, action) => {
-      state.loading = false;
-      state.error = action.payload;
-    },
   },
 });
 const Cocktail = CocktailSlice.reducer;
 // export const { addTodo, removeTodo, editTodo, getTodo } = movieSlice.actions;
+export const CocktailApi = (state) => state.data.cocktails;
 export default Cocktail;

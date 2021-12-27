@@ -18,15 +18,6 @@ export const fetchSingleCocktail = createAsyncThunk(
     return responses.data;
   }
 );
-export const fetchSearchCocktail = createAsyncThunk(
-  "Cocktails/fetchSearchCocktail",
-  async (searchText) => {
-    const responseSearch = await axios.get(
-      `https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${searchText}`
-    );
-    return responseSearch.data;
-  }
-);
 const CocktailSlice = createSlice({
   name: "cocktails",
   initialState: {
@@ -57,18 +48,6 @@ const CocktailSlice = createSlice({
       state.cocktail = action.payload.drinks;
     },
     [fetchSingleCocktail.rejected]: (state, action) => {
-      state.loading = false;
-      state.error = action.payload;
-    },
-    //! Get Search Cocktail id
-    [fetchSearchCocktail.pending]: (state, action) => {
-      state.loading = true;
-    },
-    [fetchSearchCocktail.fulfilled]: (state, action) => {
-      state.loading = false;
-      state.cocktails = action.payload.drinks;
-    },
-    [fetchSearchCocktail.rejected]: (state, action) => {
       state.loading = false;
       state.error = action.payload;
     },

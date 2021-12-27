@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { CocktailApi, fetchSingleCocktail } from "../Redux/CocktailSlice";
-import { Link } from "react-router-dom";
+
 const DetailItem = () => {
   const dispatch = useDispatch();
   const { cocktail, loading } = useSelector((state) => ({ ...state.data }));
@@ -13,7 +13,6 @@ const DetailItem = () => {
   useEffect(() => {
     dispatch(fetchSingleCocktail(id));
   }, [id]);
-
   useEffect(() => {
     if (cocktail.length > 0) {
       const {
@@ -47,18 +46,17 @@ const DetailItem = () => {
       };
       setModifiedCocktail(newCocktail);
     } else {
-      setModifiedCocktail(null);
+      setModifiedCocktail([]);
     }
-  }, [id, cocktail]);
-
-  if (!modifiedCocktail) {
+  }, [cocktail, id]);
+  if(!modifiedCocktail){
     return <h2 className="section-title">No Cocktail to Display</h2>;
-  } else {
+  }else{
     const { name, image, category, info, glass, instructions, ingredients } =
-      modifiedCocktail;
+    modifiedCocktail;
     return (
-      <>
-        {loading ? (
+    
+         {loading ? (
           <div className="spinner-grow" role="status">
             <span className="visually-hidden">Loading...</span>
           </div>
@@ -98,9 +96,10 @@ const DetailItem = () => {
               </div>
             </div>
           </section>
-        )}
-      </>
+    
     );
   }
+ 
 };
+
 export default DetailItem;

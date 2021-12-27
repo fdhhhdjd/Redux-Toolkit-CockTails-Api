@@ -20,7 +20,7 @@ export const fetchSingleCocktail = createAsyncThunk(
 );
 export const fetchSearchCocktail = createAsyncThunk(
   "Cocktails/fetchSearchCocktail",
-  async (searchText) => {
+  async ({ searchText }) => {
     const responseSearch = await axios.get(
       `https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${searchText}`
     );

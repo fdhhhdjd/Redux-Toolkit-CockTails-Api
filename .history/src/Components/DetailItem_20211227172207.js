@@ -13,7 +13,6 @@ const DetailItem = () => {
   useEffect(() => {
     dispatch(fetchSingleCocktail(id));
   }, [id]);
-
   useEffect(() => {
     if (cocktail.length > 0) {
       const {
@@ -47,10 +46,9 @@ const DetailItem = () => {
       };
       setModifiedCocktail(newCocktail);
     } else {
-      setModifiedCocktail(null);
+      setModifiedCocktail([]);
     }
-  }, [id, cocktail]);
-
+  }, [cocktail, id]);
   if (!modifiedCocktail) {
     return <h2 className="section-title">No Cocktail to Display</h2>;
   } else {
@@ -103,4 +101,5 @@ const DetailItem = () => {
     );
   }
 };
+
 export default DetailItem;
