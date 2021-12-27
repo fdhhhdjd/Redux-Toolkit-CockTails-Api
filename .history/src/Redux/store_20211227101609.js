@@ -1,0 +1,11 @@
+import { configureStore } from "@reduxjs/toolkit";
+import logger from "redux-logger";
+import CocktailSlice from "./CocktailSlice";
+const store = configureStore({
+  reducer: {
+    Cocktail: CocktailSlice,
+  },
+  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(logger),
+});
+
+export default store;
